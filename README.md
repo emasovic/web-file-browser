@@ -16,6 +16,7 @@ For the file browser, a tree-like hierarchical structure was used to represent f
 
    - Each node in the file system (either file or folder) is represented by the following properties:
         - Type: Denotes whether the node is a file or folder. This is crucial for distinguishing between different node types during rendering and interactions.
+        - Content: Content of file or folder
         - Name: The name of the file or folder.
         - Path: A dynamically generated property that indicates the full path to the node. This is helpful for identifying the node’s location within the tree.
         - Children: An object (for folders) that contains the nested files or subfolders within the folder. Folders can recursively contain more children.
