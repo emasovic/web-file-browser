@@ -52,3 +52,10 @@ The testing approach includes unit tests for each action (filtering, creating, d
 
 9. Tailwind for Styling
 Tailwind CSS is used for layout and styling to maintain consistency and efficiency in design. It allows for rapid prototyping and easy maintenance of styles, especially when building components like the treeview, modals, and buttons.
+
+## Additional features
+- Load/save data from local storage
+- Confirmation dialogs for create/delete
+- Recursive search on folders and files
+- Save/cancel file
+- Debounced filter
