@@ -1,0 +1,34 @@
+{
+  "public": {
+    "type": "folder",
+    "name": "public",
+    "children": {
+      "image.png": {
+        "type": "file",
+        "name": "image.png",
+        "content": "https://images.rawpixel.com/image_png_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvam9iNjgwLTE2Ni1wLWwxZGJ1cTN2LnBuZw.png"
+      }
+    }
+  },
+  "src": {
+    "type": "folder",
+    "name": "src",
+    "children": {
+      "app.json": {
+        "name": "app.json",
+        "type": "file",
+        "content": "{}"
+      },
+      "index.txt": {
+        "name":"index.txt",
+        "type": "file",
+        "content": "Hello World!"
+      }
+    }
+  },
+  "server": {
+    "name": "server",
+    "type": "folder",
+    "children": {}
+  }
+}
