@@ -1,46 +1,54 @@
-# Getting Started with Create React App
+# Web file browser
+## Instructions to run:
+1. make sure to use at least node v18.20.4
+2. npm install
+3. npm start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Running tests
+npm run test
 
-## Available Scripts
+## Deployment
+For more info visit https://create-react-app.dev/docs/deployment/
 
-In the project directory, you can run:
+# Design and data modeling decisions
+1. File Structure Representation
+For the file browser, a tree-like hierarchical structure was used to represent files and folders. This design decision was made to easily manage nested files and directories, and to accommodate dynamic manipulation of the file system (e.g., creating, deleting, or editing files and folders).
 
-### `npm start`
+   - Each node in the file system (either file or folder) is represented by the following properties:
+        - Type: Denotes whether the node is a file or folder. This is crucial for distinguishing between different node types during rendering and interactions.
+        - Name: The name of the file or folder.
+        - Path: A dynamically generated property that indicates the full path to the node. This is helpful for identifying the node’s location within the tree.
+        - Children: An object (for folders) that contains the nested files or subfolders within the folder. Folders can recursively contain more children.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Recursive Structure for Folders
+The folder data model includes a children property that is a nested structure to allow for recursive nesting of files and subfolders. This design allows for an efficient way to represent deeply nested directories and simplifies the rendering process by using recursion.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Dynamic Path Generation
+Each file and folder node is dynamically assigned a path property that reflects its location within the tree. The path property was introduced to uniquely identify each node without having to rely solely on its position in the children structure. The path generation is recursive and occurs during operations like loading the file browser structure or when files/folders are created.
 
-### `npm test`
+   - This allows easy traversal and referencing of nodes using paths, especially for actions like creating, deleting, or retrieving specific files or folders based on a given path.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Filter Functionality Design
+The filter functionality was designed to work recursively, traversing the file tree and matching nodes based on both file names and folder names. The filtering algorithm ensures that if a nested file matches the filter, its parent folders are also included in the result to maintain context in the tree view. This decision ensures that users always see the hierarchy and context around matching files.
 
-### `npm run build`
+5. Treeview UI Design
+The treeview structure mirrors the recursive data model of the file system. Folders are expandable, and users can toggle them to show or hide their children. Files are clickable, allowing users to view or edit their content on the right side of the UI. This separation of folders (left) and file content (right) enhances the user experience, making it easy to browse and edit files.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+6. File Operations and State Management
+File operations (create, delete, edit) are handled by dispatching actions to update the state of the file browser. This ensures a clear separation of concerns, where the state of the file browser is centrally managed, and all file actions are applied uniformly. The state updates dynamically affect both the treeview and the file viewer/editor.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - The core actions implemented include:
+      - Create Folder: Adds a new folder node to the specified path.
+      - Delete Folder: Removes a folder and its contents recursively.
+      - Create File: Adds a new file node to a folder.
+      - Delete File: Removes a file from its parent folder.
+      - Edit File: Updates the content of a specific file.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+7. Data Model Flexibility
+The data model is flexible enough to support additional features like file renaming, moving files, or even changing file types. The recursive nature of folders and the clear separation of files and folders in the model ensures that future scalability and feature additions (such as support for additional file types) can be implemented with minimal changes to the core model.
 
-### `npm run eject`
+8. Testing Strategy
+The testing approach includes unit tests for each action (filtering, creating, deleting, and editing files/folders). The recursive nature of the file system is considered in tests to ensure that nested structures are handled correctly. Edge cases like invalid paths, missing files, or empty folders are tested to ensure robustness.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+9. Tailwind for Styling
+Tailwind CSS is used for layout and styling to maintain consistency and efficiency in design. It allows for rapid prototyping and easy maintenance of styles, especially when building components like the treeview, modals, and buttons.
