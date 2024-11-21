@@ -32,7 +32,7 @@ export const useFileBrowserReducer = () => {
         if (storedfileBrowser) {
             setFileBrowser(JSON.parse(storedfileBrowser));
         } else {
-            fetch("/fileBrowser.json")
+            fetch("/web-file-browser/fileBrowser.json")
                 .then((response) => response.json())
                 .then((data) => {
                     setFileBrowser(data);
